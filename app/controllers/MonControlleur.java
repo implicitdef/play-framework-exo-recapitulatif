@@ -2,11 +2,14 @@ package controllers;
 
 import objects.User;
 import play.Configuration;
+import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
 import play.libs.ws.WSClient;
 import play.mvc.Controller;
+import play.mvc.LegacyWebSocket;
 import play.mvc.Result;
+import play.mvc.WebSocket;
 import services.UsersService;
 import views.html.accueil;
 import views.html.login;
@@ -92,6 +95,25 @@ public class MonControlleur extends Controller {
         session().remove(USERNAME_SESSION_KEY);
         return redirect(routes.MonControlleur.index());
     }
+
+    public LegacyWebSocket<String> usersWebsocket() {
+        return WebSocket.whenReady((in, out) -> {
+            in.onMessage((message) -> {
+                out.write(usersService.getAllUsers().toString());
+            });
+        });
+    }
+    public LegacyWebSocket<String> usersWebsocketWithApiCall() {
+        return WebSocket.whenReady((in, out) -> {
+            in.onMessage((message) -> {
+                usersService.getAllUsersWithApiCall()
+                    .thenAccept((users) -> {
+                        out.write(users.toString());
+                    });
+            });
+        });
+    }
+
 
 
 }

@@ -2,12 +2,16 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                           controllers.MonControlleur.index
-GET     /login                      controllers.MonControlleur.login
-POST    /login                      controllers.MonControlleur.loginSubmit
-GET     /users                      controllers.MonControlleur.users
-GET     /users-with-api-call        controllers.MonControlleur.usersWithApiCall
-GET     /logout                     controllers.MonControlleur.logout
+GET     /                                controllers.MonControlleur.index
+GET     /login                           controllers.MonControlleur.login
+POST    /login                           controllers.MonControlleur.loginSubmit
+GET     /users                           controllers.MonControlleur.users
+GET     /users-with-api-call             controllers.MonControlleur.usersWithApiCall
+GET     /logout                          controllers.MonControlleur.logout
+
+GET     /users-websocket                 controllers.MonControlleur.usersWebsocket
+GET     /users-websocket-with-api-call   controllers.MonControlleur.usersWebsocketWithApiCall
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
