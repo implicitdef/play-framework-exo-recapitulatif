@@ -1,0 +1,12 @@
+@(title: String, username: String)(content: Html)
+
+@if(username != null){
+    <strong>Status :</strong> connecté en tant que <i>@username</i>
+} else {
+    <strong>Status :</strong> non connecté
+}
+<hr>
+
+<h1>@title</h1>
+
+@content

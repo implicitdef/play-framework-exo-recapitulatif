@@ -1,0 +1,21 @@
+@import objects.User
+@(username: String, userForm: Form[User])
+
+@layout("Connexion", username) {
+
+    @if(userForm.hasErrors){
+        <strong>Erreur, formulaire invalide</strong>
+    }
+
+    @helper.form(action = routes.MonControlleur.loginSubmit()) {
+
+        @helper.inputText(userForm("name"))
+
+        @helper.inputPassword(userForm("password"))
+
+        <button>OK</button>
+    }
+
+}
+
+

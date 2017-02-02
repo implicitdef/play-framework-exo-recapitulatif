@@ -1,0 +1,13 @@
+@import objects.User
+@(username: String, users: List[User])
+
+@layout("Liste des utilisteurs", username) {
+
+    <ul>
+    @for(user <- users){
+        <li>@user.getName</li>
+    }
+    </ul>
+}
+
+
