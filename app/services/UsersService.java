@@ -23,7 +23,11 @@ public class UsersService {
         allUsers.add(new User("Donald", "123"));
     }
 
-    public CompletionStage<List<User>> getAllUsers() {
+    public List<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public CompletionStage<List<User>> getAllUsersWithApiCall() {
         return wsClient
             .url("https://jsonplaceholder.typicode.com/users")
             .get()

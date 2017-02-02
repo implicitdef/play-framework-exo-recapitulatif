@@ -4,6 +4,7 @@
 
     @if(username != null){
         <a href="@routes.MonControlleur.users()">Voir la liste des utilisateurs</a><br>
+        <a href="@routes.MonControlleur.usersWithApiCall()">Voir la liste des utilisateurs (avec appel d'une API externe)</a><br>
         <a href="@routes.MonControlleur.logout()">Se déconnecter</a><br>
     } else {
         <a href="@routes.MonControlleur.login()">Connexion</a><br>

@@ -69,13 +69,21 @@ public class MonControlleur extends Controller {
         return badRequest(login.render(null, userForm));
     }
 
-    public CompletionStage<Result> users(){
+    public Result users(){
+        String username = session(USERNAME_SESSION_KEY);
+        if (username == null){
+            return redirect(routes.MonControlleur.index());
+        }
+        return ok(users.render(username, usersService.getAllUsers()));
+    }
+
+    public CompletionStage<Result> usersWithApiCall(){
         String username = session(USERNAME_SESSION_KEY);
         if (username == null){
             Result myRedirect = redirect(routes.MonControlleur.index());
             return CompletableFuture.completedFuture(myRedirect);
         }
-        return usersService.getAllUsers().thenApply((usersToDisplay) -> {
+        return usersService.getAllUsersWithApiCall().thenApply((usersToDisplay) -> {
             return ok(users.render(username, usersToDisplay));
         });
     }
