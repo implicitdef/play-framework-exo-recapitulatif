@@ -1,6 +1,7 @@
 package services;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import daos.UsersDao;
 import objects.User;
 import play.libs.ws.WSClient;
 
@@ -11,20 +12,15 @@ import java.util.concurrent.CompletionStage;
 
 public class UsersService {
 
-    private List<User> allUsers = new ArrayList<>();
-
     @Inject
     private WSClient wsClient;
 
+    @Inject
+    private UsersDao usersDao;
 
-    public UsersService() {
-        allUsers.add(new User("Emmanuel", "123"));
-        allUsers.add(new User("Berta", "123"));
-        allUsers.add(new User("Donald", "123"));
-    }
 
     public List<User> getAllUsers() {
-        return allUsers;
+        return usersDao.getUsers();
     }
 
     public CompletionStage<List<User>> getAllUsersWithApiCall() {
@@ -40,7 +36,7 @@ public class UsersService {
                         User user = new User(name, "passwordDéfaut");
                         users.add(user);
                     }
-                    users.addAll(allUsers);
+                    users.addAll(getAllUsers());
                     return users;
                 } else {
                     throw new RuntimeException("Bad response");
@@ -49,7 +45,7 @@ public class UsersService {
     }
 
     public Boolean isValidUser(User user){
-        return allUsers.contains(user);
+        return getAllUsers().contains(user);
     }
 
 
